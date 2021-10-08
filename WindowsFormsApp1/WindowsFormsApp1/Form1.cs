@@ -12,9 +12,17 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        List<Flat> lakasok;
+        RealEstateEntities context = new RealEstateEntities();
         public Form1()
         {
             InitializeComponent();
+            LoadData();
+        }
+
+        public void LoadData()
+        {
+            lakasok = context.Flats.ToList();
         }
     }
 }
