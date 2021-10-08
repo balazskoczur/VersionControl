@@ -19,6 +19,8 @@ namespace WindowsFormsApp1
         Excel.Application xlApp;
         Excel.Workbook xlWB;
         Excel.Worksheet xlSheet;
+        string[] headers;
+        object[,] values;
 
         public Form1()
         {
@@ -60,7 +62,7 @@ namespace WindowsFormsApp1
 
         public void CreateTable()
         {
-            string[] headers = new string[] 
+            headers = new string[] 
             {
                 "Kód",
                 "Eladó",
@@ -75,7 +77,7 @@ namespace WindowsFormsApp1
             for (int i = 0; i < headers.Length; i++)
                 xlSheet.Cells[1, i + 1] = headers[i];
 
-            object[,] values = new object[lakasok.Count, headers.Length];
+            values = new object[lakasok.Count, headers.Length];
             int counter = 0;
             int floorcolumn = 6;
             int pricecolumn = 7;
@@ -98,6 +100,31 @@ namespace WindowsFormsApp1
             var range = xlSheet.get_Range(GetCell(2, 1), GetCell(values.GetLength(0), values.GetLength(1)));
             range.Value2 = values;
 
+            FormatTable();
+
+        }
+
+        private void FormatTable()
+        {
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range wholeTable = xlSheet.get_Range(GetCell(1, 1), GetCell(values.GetLength(0), values.GetLength(1)));
+            wholeTable.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            Excel.Range firstColumn = xlSheet.get_Range(GetCell(2, 1), GetCell(values.GetLength(0), 1));
+            firstColumn.Font.Bold = true;
+            firstColumn.Interior.Color = Color.LightYellow;
+
+            Excel.Range lastColumn = xlSheet.get_Range(GetCell(2, values.GetLength(1)), GetCell(values.GetLength(0), values.GetLength(1)));
+            lastColumn.Interior.Color = Color.LightGreen;
+            lastColumn.NumberFormat = "#.00";
         }
 
 
