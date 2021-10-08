@@ -77,6 +77,8 @@ namespace WindowsFormsApp1
 
             object[,] values = new object[lakasok.Count, headers.Length];
             int counter = 0;
+            int floorcolumn = 6;
+            int pricecolumn = 7;
             foreach (var lakas in lakasok)
             {
                 values[counter, 0] = lakas.Code;
@@ -85,28 +87,38 @@ namespace WindowsFormsApp1
                 values[counter, 3] = lakas.District;
                 values[counter, 4] = lakas.Elevator ? "Van" : "Nincs";
                 values[counter, 5] = lakas.NumberOfRooms;
-                values[counter, 6] = lakas.FloorArea;
-                values[counter, 7] = lakas.Price;
-                values[counter, 8] = "";
+                values[counter, floorcolumn] = lakas.FloorArea;
+                values[counter, pricecolumn] = lakas.Price;
+                values[counter, 8] = string.Format("={0}/{1}*1000000", 
+                    GetCell(counter + 2, pricecolumn+1), 
+                    GetCell(counter + 2, floorcolumn+1));
                 counter++;
             }
 
-            private string GetCell(int x, int y)
+            var range = xlSheet.get_Range(GetCell(2, 1), GetCell(values.GetLength(0), values.GetLength(1)));
+            range.Value2 = values;
+
+        }
+
+
+
+
+
+        private string GetCell(int x, int y)
+        {
+            string ExcelCoordinate = "";
+            int dividend = y;
+            int modulo;
+
+            while (dividend > 0)
             {
-                string ExcelCoordinate = "";
-                int dividend = y;
-                int modulo;
-
-                while (dividend > 0)
-                {
-                    modulo = (dividend - 1) % 26;
-                    ExcelCoordinate = Convert.ToChar(65 + modulo).ToString() + ExcelCoordinate;
-                    dividend = (int)((dividend - modulo) / 26);
-                }
-                ExcelCoordinate += x.ToString();
-
-                return ExcelCoordinate;
+                modulo = (dividend - 1) % 26;
+                ExcelCoordinate = Convert.ToChar(65 + modulo).ToString() + ExcelCoordinate;
+                dividend = (int)((dividend - modulo) / 26);
             }
+            ExcelCoordinate += x.ToString();
+
+            return ExcelCoordinate;
         }
     }
 }
