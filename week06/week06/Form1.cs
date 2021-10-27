@@ -16,11 +16,16 @@ namespace week06
 {
     public partial class Form1 : Form
     {
-        BindingList<RateData> Rates = new BindingList<RateData>;
+        BindingList<RateData> Rates = new BindingList<RateData>();
         public Form1()
         {
             InitializeComponent();
+            BindingList<string> Currencies = new BindingList<string>();
+            comboBox1.DataSource = Currencies;
+            Currencies.GetCurrencies;
             RefreshData();
+
+
         }
 
         private void RefreshData()
@@ -31,7 +36,7 @@ namespace week06
             xmlolvasas();
             diagram();
         }
-
+        
         public void Arfolyam()
         {
             var mnbService = new MNBArfolyamServiceSoapClient();
