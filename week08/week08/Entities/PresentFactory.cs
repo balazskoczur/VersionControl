@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace week08.Entities
 {
-    public class BallFactory : Abstractions.IToyFactory
+    public class PresentFactory : Abstractions.IToyFactory
     {
-        public Color BallColor { get; set; }
-
+        public Color PresentColor { get; set; }
+        public Color RibbonColor { get; set; }
         public Abstractions.Toy CreateNew()
         {
-            return new Ball(BallColor);
+            return new Present(PresentColor, RibbonColor);
         }
     }
 }

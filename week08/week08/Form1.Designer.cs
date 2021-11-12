@@ -90,7 +90,7 @@ namespace week08
             // btnColor
             // 
             this.btnColor.BackColor = System.Drawing.Color.Lime;
-            this.btnColor.Location = new System.Drawing.Point(228, 71);
+            this.btnColor.Location = new System.Drawing.Point(27, 81);
             this.btnColor.Name = "btnColor";
             this.btnColor.Size = new System.Drawing.Size(75, 23);
             this.btnColor.TabIndex = 4;

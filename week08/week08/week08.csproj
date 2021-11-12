@@ -50,7 +50,14 @@
     <Compile Include="Abstractions\Toy.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Entities\Ball.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Entities\BallFactory.cs" />
+    <Compile Include="Entities\Present.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Entities\PresentFactory.cs" />
     <Compile Include="Entities\Toy.cs">
       <SubType>Component</SubType>
     </Compile>

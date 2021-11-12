@@ -13,5 +13,6 @@ namespace week08.Entities
         {
             return new Toy();
         }
+
     }
 }
