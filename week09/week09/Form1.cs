@@ -150,7 +150,22 @@ namespace week09
 
         private void button2_Click(object sender, EventArgs e)
         {
+            richTextBox1.Clear();
             Simulation();
+            DisplayResults();
+        }
+
+        int Males = (from x in Population where x.Gender == 1 select x).Count();
+        int Females = (from x in Population where x.Gender == 2 select x).Count();
+
+        private void DisplayResults()
+        {
+            for (int year=2005; year<=numericUpDown1.Value;year++ )
+            {
+                int i = 0;
+                richTextBox1.Text += "Szimulációs év:" + year + "\n\t Fiúk:" + Males[i] + "\n\t Lányok:" + Females[i] + "\n\n";
+                i++;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -161,7 +176,10 @@ namespace week09
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog OFD = new OpenFileDialog();
-            OFD.ShowDialog();
+            if (OFD.ShowDialog() == DialogResult.OK)
+            {
+                textBox1.Text = OFD.FileName;
+            }
         }
     }
 }
